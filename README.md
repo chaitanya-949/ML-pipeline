@@ -15,7 +15,7 @@ The objective is to predict customer churn by processing raw data, applying NLP-
 * Experiment tracking using **DVC + dvclive**
 * Parameter management via `params.yaml`
 * Extensive logging for debugging and traceability
-* Model comparison (RandomForest & XGBoost)
+
 
 ---
 
@@ -128,9 +128,7 @@ Metrics and parameters are automatically logged for every experiment run.
 
 ### 1. Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
+
 
 ### 2. Initialize DVC
 
@@ -187,7 +185,6 @@ Machine Learning / Data Science Practitioner
 ## Future Improvements
 
 * Hyperparameter tuning with DVC experiments
-* Model explainability (SHAP / LIME)
 * CI/CD integration for ML pipelines
 * Deployment using FastAPI or Streamlit
 
