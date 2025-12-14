@@ -16,3 +16,91 @@ stages:
       md5: d26befd2dda9438254177d9000d9ba1f.dir
       size: 484846
       nfiles: 2
+  data_preprocessing:
+    cmd: python src/data_preprocessing.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: d26befd2dda9438254177d9000d9ba1f.dir
+      size: 484846
+      nfiles: 2
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: 10950ed9bc52c036041d85cd9ef11524
+      size: 3579
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: f374fb7926c786b1a92c0d92acd56f1e.dir
+      size: 359520
+      nfiles: 2
+  feature_engineering:
+    cmd: python src/feature_engineering.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: f374fb7926c786b1a92c0d92acd56f1e.dir
+      size: 359520
+      nfiles: 2
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: bc03059b6e4a540423e20cf4ec966f48
+      size: 3952
+    params:
+      params.yaml:
+        feature_engineering.max_features: 22
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: ae718cf79f94d463c6aff05de03352cf.dir
+      size: 1639509
+      nfiles: 2
+  model_building:
+    cmd: python src/model_building.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: ae718cf79f94d463c6aff05de03352cf.dir
+      size: 1639509
+      nfiles: 2
+    - path: src/model_building.py
+      hash: md5
+      md5: 3f2928314d972960bc2c8037c5df4f9a
+      size: 5116
+    params:
+      params.yaml:
+        model_building.n_estimators: 26
+        model_building.random_state: 2
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 82a0313b9e6b49ff25dedf7c83c0ec8d
+      size: 924771
+    - path: models/modelxgboost.pkl
+      hash: md5
+      md5: 0db8353624b0e088b39a7338b6c23438
+      size: 136859
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: 82a0313b9e6b49ff25dedf7c83c0ec8d
+      size: 924771
+    - path: models/modelxgboost.pkl
+      hash: md5
+      md5: 0db8353624b0e088b39a7338b6c23438
+      size: 136859
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: 57f55388fe6dafbed6fde082934a1b63
+      size: 4855
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: ac0ca79ba436af05a9eae9f58ac1fc04
+      size: 145
+    - path: reports/xgboost_metrics.json
+      hash: md5
+      md5: 1e49912d93bf4da8b249b45dbf4fb04e
+      size: 145
